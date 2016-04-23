@@ -1,0 +1,28 @@
+{
+  "name": "elm-api-components",
+  "version": "1.0.0",
+  "description": "API components for use with Elm",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NoRedInk/elm-api-components.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NoRedInk/elm-api-components/issues"
+  },
+  "homepage": "https://github.com/NoRedInk/elm-api-components#readme",
+  "devDependencies": {
+    "cheerio": "^0.20.0",
+    "elm-test": "^0.16.0",
+    "vdom-to-html": "^2.2.0",
+    "virtual-dom": "^2.1.1"
+  }
+}
