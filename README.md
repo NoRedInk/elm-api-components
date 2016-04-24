@@ -1,4 +1,4 @@
-# elm-api-components
+# elm-api-components [![Build Status](https://travis-ci.org/NoRedInk/elm-api-components.svg?branch=master)](https://travis-ci.org/NoRedInk/elm-api-components)
 API components for use with Elm
 
 
