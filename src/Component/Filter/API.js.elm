@@ -65,8 +65,6 @@ type alias TextEntries =
     , cat : TextModel.Model {}
     }
 
-type TextEntry = Robot | Cat
-
 type alias TopLevelModel =
     FilterModel.Model TextEntries String
 
@@ -76,7 +74,7 @@ type TopLevelAction =
 type MessageRouter
     = TopLevel TopLevelAction
     | FilterLevel FilterUpdate.Action
-    | TextLevel TextEntry TextUpdate.Action
+    | TextLevel (TopLevelModel -> TextModel.Model a) TextUpdate.Action
 
 
 topLevelUpdate : TopLevelAction -> TopLevelModel -> (TopLevelModel, Cmd TopLevelAction)
