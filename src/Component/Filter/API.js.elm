@@ -103,29 +103,20 @@ router message model =
             in
                 (newModel, Cmd.map FilterLevel commands)
 
-        TextLevel componentType action ->
-            case componentType of
-                Robot ->
-                    let
-                        (newRobot, commands) =
-                            TextUpdate.update action model.robot
-                    in
-                        ( { model | robot = newRobot }, Cmd.map (TextLevel Robot) commands )
-                Cat ->
-                    let
-                        (newCat, commands) =
-                            TextUpdate.update action model.cat
-                    in
-                        ( { model | cat = newCat }, Cmd.map (TextLevel Cat) commands )
-
+        TextLevel field action ->
+            let
+                (newField, commands) =
+                    TextUpdate.update action (get field model)
+            in
+                (set field model newField, Cmd.map (TextLevel field) action)
 
 view : TopLevelModel -> Html MessageRouter
 view model =
     div
         []
         [ Html.map FilterLevel (FilterView.view model)
-        , Html.map (TextLevel Cat) (TextView.view model.cat)
-        , Html.map (TextLevel Robot) (TextView.view model.robot)
+        , Html.map (TextLevel (.cat)) (TextView.view model.cat)
+        , Html.map (TextLevel (.robot)) (TextView.view model.robot)
 
         ]
 
