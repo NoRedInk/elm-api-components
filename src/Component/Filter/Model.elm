@@ -1,4 +1,4 @@
-module Component.Filter.Model (Model, FilterField) where
+module Component.Filter.Model exposing (Model, FilterField) -- where
 {-| Our filter API
 
 @docs Model, FilterField

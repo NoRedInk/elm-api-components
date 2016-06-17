@@ -1,4 +1,4 @@
-module Component.Filter.View (view, viewFilterCheckbox, filterNamespace, CssClasses(..)) where
+module Component.Filter.View exposing (view, viewFilterCheckbox, filterNamespace, CssClasses(..)) -- where
 {-| A view display for a filter
 @docs view, viewFilterCheckbox
 
@@ -8,7 +8,6 @@ module Component.Filter.View (view, viewFilterCheckbox, filterNamespace, CssClas
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
-import Signal
 
 import Css exposing (..)
 import Css.Elements as Elements
@@ -31,7 +30,7 @@ type CssClasses
 
 {-| Our namespace for these filters
 -}
-filterNamespace : Html.CssHelpers.Namespace String a b
+filterNamespace : Html.CssHelpers.Namespace String a b Action
 filterNamespace =
   withNamespace "filter"
 
@@ -79,8 +78,8 @@ entryCss =
 
 {-| Displays a single filter field
 -}
-viewFilterCheckbox : Signal.Address Action -> FilterField a -> Html
-viewFilterCheckbox address filterField =
+viewFilterCheckbox : FilterField a -> Html Action
+viewFilterCheckbox filterField =
   div
     [ filterNamespace.class [ FilterEntry ]
     ]
@@ -91,7 +90,7 @@ viewFilterCheckbox address filterField =
       , name filterField.name
       , type' "checkbox"
       , value filterField.value
-      , onClick address (SetFilterChecked filterField.name (not filterField.isChecked))
+      , onClick (SetFilterChecked filterField.name (not filterField.isChecked))
       ]
       []
     , label
@@ -101,8 +100,8 @@ viewFilterCheckbox address filterField =
 
 {-| Displays all filters in the model side-by-side
 -}
-view : Addresses a -> Signal.Address Action -> Model b c -> Html
-view addresses _ model =
+view : Model b c -> Html Action
+view model =
   let
     visibleFilters =
       List.filter (.isVisible) model.filters
@@ -115,5 +114,5 @@ view addresses _ model =
       [ Html.CssHelpers.style css
       , div
         [ class "checkbox-container" ]
-        (text "Show:" :: (List.map (viewFilterCheckbox addresses.filter) visibleFilters))
+        (text "Show:" :: (List.map viewFilterCheckbox visibleFilters))
       ]
